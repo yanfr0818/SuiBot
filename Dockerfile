@@ -7,18 +7,22 @@ FROM base AS install
 COPY package.json ./
 RUN bun install --production
 
-# Get Event Bridge Server binary from official image
-FROM ghcr.io/laplace-live/event-bridge:latest AS bridge-source
+# Build Event Bridge Server from source
+# This avoids 403 (private image) and 404 (bad URL) errors
+FROM golang:1.23-alpine AS bridge-builder
+RUN apk add --no-cache git
+WORKDIR /build
+RUN git clone https://github.com/laplace-live/event-bridge.git .
+WORKDIR /build/packages/server
+RUN go build -o leb-server .
 
 # Main image
 FROM base AS release
 COPY --from=install /app/node_modules ./node_modules
 COPY . .
 
-# Copy binary from official image
-COPY --from=bridge-source /usr/local/bin/leb-server /usr/local/bin/leb-server
-# Fallback: If it's not in /usr/local/bin, try /app/leb-server (commented out as logic needs to be precise)
-# We assume standard path. If this fails, we will check the image structure.
+# Copy binary from builder
+COPY --from=bridge-builder /build/packages/server/leb-server /usr/local/bin/leb-server
 RUN chmod +x /usr/local/bin/leb-server
 
 # Create bot-data directory
