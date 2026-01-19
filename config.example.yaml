@@ -11,12 +11,12 @@ bridges:
 
 # Room configurations
 rooms:
-  - room_id: 25788785
-    uid: 1954091502  # Streamer's UID
-    slug: 岁己SUI
+  - room_id: ${ROOM_ID}
+    uid: ${UID}  # Streamer's UID
+    slug: ${SLUG}
     vip_users: []
-    telegram_announce_ch: -1002161820960  # Your Telegram channel ID for announcements
-    telegram_watchers_ch: -1002161820960  # Your Telegram channel ID for gifts/donations
+    telegram_announce_ch: ${TELEGRAM_ANNOUNCE_CH}  # Your Telegram channel ID for announcements
+    telegram_watchers_ch: ${TELEGRAM_WATCHERS_CH}  # Your Telegram channel ID for gifts/donations
     # Optional: Minimum gift price to notify (in coins, 1000 = 1 CNY, default: 100000)
     minimum_gift_price: 100000
     # Optional: Minimum guard price to notify (in coins, 1000 = 1 CNY, default: 200000)
