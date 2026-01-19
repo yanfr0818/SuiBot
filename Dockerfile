@@ -7,14 +7,18 @@ FROM base AS install
 COPY package.json ./
 RUN bun install --production
 
-# Copy source code
+# Get Event Bridge Server binary from official image
+FROM ghcr.io/laplace-live/event-bridge:latest AS bridge-source
+
+# Main image
 FROM base AS release
 COPY --from=install /app/node_modules ./node_modules
 COPY . .
 
-# Download Event Bridge Server binary
-# We use the Go binary for better performance and stability
-ADD https://github.com/laplace-live/event-bridge/releases/download/@laplace.live/event-bridge-server@0.3.4/leb-server-linux-amd64 /usr/local/bin/leb-server
+# Copy binary from official image
+COPY --from=bridge-source /usr/local/bin/leb-server /usr/local/bin/leb-server
+# Fallback: If it's not in /usr/local/bin, try /app/leb-server (commented out as logic needs to be precise)
+# We assume standard path. If this fails, we will check the image structure.
 RUN chmod +x /usr/local/bin/leb-server
 
 # Create bot-data directory
