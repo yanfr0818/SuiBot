@@ -14,7 +14,7 @@ COPY . .
 
 # Download Event Bridge Server binary
 # We use the Go binary for better performance and stability
-ADD https://github.com/laplace-live/event-bridge/releases/latest/download/leb-server-linux-amd64 /usr/local/bin/leb-server
+ADD https://github.com/laplace-live/event-bridge/releases/download/@laplace.live/event-bridge-server@0.3.4/leb-server-linux-amd64 /usr/local/bin/leb-server
 RUN chmod +x /usr/local/bin/leb-server
 
 # Create bot-data directory
