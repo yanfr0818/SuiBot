@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+bun.lockb
+
+# Session data
+bot-data/
+
+# Configuration (contains sensitive data)
+config.yaml
+.env
+
+# Build outputs
+dist/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Fly.io
+.fly/

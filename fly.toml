@@ -1,0 +1,23 @@
+# fly.toml app configuration file
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+
+app = 'suibot'
+primary_region = 'nrt'  # Tokyo - change to your preferred region
+
+[build]
+
+[env]
+  # Add any non-sensitive environment variables here
+
+[processes]
+  app = "bun run start"
+
+[[vm]]
+  memory = '256mb'
+  cpu_kind = 'shared'
+  cpus = 1
+
+[[mounts]]
+  source = "bilibot_data"
+  destination = "/app/bot-data"
+  initial_size = "1gb"
