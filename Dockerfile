@@ -4,8 +4,8 @@ WORKDIR /app
 
 # Install dependencies
 FROM base AS install
-COPY package.json bun.lockb ./
-RUN bun install --frozen-lockfile --production
+COPY package.json ./
+RUN bun install --production
 
 # Copy source code
 FROM base AS release
