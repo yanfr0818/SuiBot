@@ -9,4 +9,11 @@ sleep 2
 
 # Start BiliBot
 echo "Starting BiliBot..."
+
+# Ensure config.yaml exists
+if [ ! -f config.yaml ]; then
+    echo "Creating config.yaml from config.example.yaml..."
+    cp config.example.yaml config.yaml
+fi
+
 exec bun run start
